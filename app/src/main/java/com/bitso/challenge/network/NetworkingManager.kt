@@ -1,8 +1,8 @@
-package com.bitso.sample.network
+package com.bitso.challenge.network
 
 import android.content.Context
-import com.bitso.sample.BuildConfig
-import com.bitso.sample.coroutines.DispatcherProvider
+import com.bitso.challenge.BuildConfig
+import com.bitso.challenge.coroutines.DispatcherProvider
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import kotlinx.coroutines.runBlocking
 import okhttp3.Cache

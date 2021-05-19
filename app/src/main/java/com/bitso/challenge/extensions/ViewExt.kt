@@ -1,4 +1,4 @@
-package com.bitso.sample.extensions
+package com.bitso.challenge.extensions
 
 import android.view.View
 import android.view.View.VISIBLE

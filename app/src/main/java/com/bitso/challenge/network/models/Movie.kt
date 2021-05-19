@@ -1,4 +1,4 @@
-package com.bitso.sample.network.models
+package com.bitso.challenge.network.models
 
 import android.os.Parcelable
 import com.squareup.moshi.Json

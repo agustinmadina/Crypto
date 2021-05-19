@@ -1,12 +1,12 @@
-package com.bitso.sample.di
+package com.bitso.challenge.di
 
 import android.app.Application
-import com.bitso.sample.coroutines.DispatcherProvider
-import com.bitso.sample.coroutines.DispatcherProviderImpl
-import com.bitso.sample.network.ApiService
-import com.bitso.sample.network.NetworkingManager
-import com.bitso.sample.repos.MainRepository
-import com.bitso.sample.viewmodels.MainViewModel
+import com.bitso.challenge.coroutines.DispatcherProvider
+import com.bitso.challenge.coroutines.DispatcherProviderImpl
+import com.bitso.challenge.network.ApiService
+import com.bitso.challenge.network.NetworkingManager
+import com.bitso.challenge.repos.MainRepository
+import com.bitso.challenge.viewmodels.MainViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.KoinExperimentalAPI

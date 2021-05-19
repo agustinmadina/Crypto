@@ -1,4 +1,4 @@
-package com.bitso.sample.coroutines
+package com.bitso.challenge.coroutines
 
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext

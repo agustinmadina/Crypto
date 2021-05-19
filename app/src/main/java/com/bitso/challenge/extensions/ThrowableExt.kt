@@ -1,7 +1,7 @@
-package com.bitso.sample.extensions
+package com.bitso.challenge.extensions
 
 import android.content.Context
-import com.bitso.sample.R
+import com.bitso.challenge.R
 import retrofit2.HttpException
 
 fun Throwable.getIOErrorMessage(context: Context) = when (this) {

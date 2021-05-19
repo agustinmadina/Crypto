@@ -1,12 +1,12 @@
-package com.bitso.sample.viewmodels
+package com.bitso.challenge.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bitso.sample.network.models.Movie
-import com.bitso.sample.network.models.MovieDetail
-import com.bitso.sample.repos.MainRepository
+import com.bitso.challenge.network.models.Movie
+import com.bitso.challenge.network.models.MovieDetail
+import com.bitso.challenge.repos.MainRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

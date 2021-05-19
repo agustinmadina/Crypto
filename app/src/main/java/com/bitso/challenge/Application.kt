@@ -1,7 +1,7 @@
-package com.bitso.sample
+package com.bitso.challenge
 
 import android.app.Application
-import com.bitso.sample.di.initKoin
+import com.bitso.challenge.di.initKoin
 import org.koin.core.KoinExperimentalAPI
 import timber.log.Timber
 

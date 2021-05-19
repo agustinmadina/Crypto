@@ -1,13 +1,14 @@
-package com.bitso.sample.adapters
+package com.bitso.challenge.adapters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bitso.sample.BuildConfig.IMAGE_BASE_URL
-import com.bitso.sample.databinding.ListItemMovieBinding
-import com.bitso.sample.extensions.viewBinding
-import com.bitso.sample.network.models.Movie
+import coil.load
+import com.bitso.challenge.BuildConfig.IMAGE_BASE_URL
+import com.bitso.challenge.databinding.ListItemMovieBinding
+import com.bitso.challenge.extensions.viewBinding
+import com.bitso.challenge.network.models.Movie
 
 typealias MovieDetailsFn = (Movie) -> Unit
 

@@ -27,7 +27,7 @@
 
         <argument
             android:name="movie"
-            app:argType="com.agustin.sample.network.models.Movie" />
+            app:argType="com.bitso.challenge.network.models.Movie" />
     </fragment>
 
 </navigation>

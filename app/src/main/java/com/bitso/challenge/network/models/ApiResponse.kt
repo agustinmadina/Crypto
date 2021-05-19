@@ -1,4 +1,4 @@
-package com.bitso.sample.network.models
+package com.bitso.challenge.network.models
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

@@ -1,9 +1,9 @@
-package com.bitso.sample.repos
+package com.bitso.challenge.repos
 
-import com.bitso.sample.coroutines.DispatcherProvider
-import com.bitso.sample.network.ApiService
-import com.bitso.sample.network.models.Movie
-import com.bitso.sample.network.models.MovieDetail
+import com.bitso.challenge.coroutines.DispatcherProvider
+import com.bitso.challenge.network.ApiService
+import com.bitso.challenge.network.models.Movie
+import com.bitso.challenge.network.models.MovieDetail
 import kotlinx.coroutines.withContext
 
 class MainRepository(

@@ -1,4 +1,4 @@
-package com.bitso.sample.ui
+package com.bitso.challenge.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,9 +7,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
-import com.bitso.sample.R
-import com.bitso.sample.databinding.ActivityMainBinding
-import com.bitso.sample.extensions.viewBinding
+import com.bitso.challenge.R
+import com.bitso.challenge.databinding.ActivityMainBinding
+import com.bitso.challenge.extensions.viewBinding
 
 class MainActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityMainBinding::inflate)

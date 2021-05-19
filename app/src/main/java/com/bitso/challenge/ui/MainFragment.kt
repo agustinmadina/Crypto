@@ -1,4 +1,4 @@
-package com.bitso.sample.ui
+package com.bitso.challenge.ui
 
 import android.os.Bundle
 import android.view.View
@@ -7,15 +7,15 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bitso.sample.R
-import com.bitso.sample.adapters.MoviesAdapter
-import com.bitso.sample.databinding.FragmentMainBinding
-import com.bitso.sample.extensions.getIOErrorMessage
-import com.bitso.sample.extensions.showToast
-import com.bitso.sample.extensions.viewBinding
-import com.bitso.sample.network.models.Movie
-import com.bitso.sample.viewmodels.MainViewModel
-import com.bitso.sample.viewmodels.MovieState
+import com.bitso.challenge.R
+import com.bitso.challenge.adapters.MoviesAdapter
+import com.bitso.challenge.databinding.FragmentMainBinding
+import com.bitso.challenge.extensions.getIOErrorMessage
+import com.bitso.challenge.extensions.showToast
+import com.bitso.challenge.extensions.viewBinding
+import com.bitso.challenge.network.models.Movie
+import com.bitso.challenge.viewmodels.MainViewModel
+import com.bitso.challenge.viewmodels.MovieState
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

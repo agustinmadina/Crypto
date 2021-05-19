@@ -1,4 +1,4 @@
-package com.bitso.sample.extensions
+package com.bitso.challenge.extensions
 
 import android.content.Context
 import android.widget.Toast
