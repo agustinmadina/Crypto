@@ -8,12 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bitso.challenge.R
 import com.bitso.challenge.adapters.TickersAdapter
 import com.bitso.challenge.databinding.FragmentMainBinding
-import com.bitso.challenge.extensions.getIOErrorMessage
-import com.bitso.challenge.extensions.showToast
-import com.bitso.challenge.extensions.viewBinding
+import com.bitso.challenge.extensions.*
 import com.bitso.challenge.network.models.Ticker
 import com.bitso.challenge.viewmodels.TickersViewModel
 import com.bitso.challenge.viewmodels.TickersState
+import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -48,10 +47,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun setupObservers() {
         tickersViewModel.tickersState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is TickersState.Loading -> binding.loadingProgressBar.show()
-                is TickersState.Success -> binding.loadingProgressBar.hide()
+                is TickersState.Loading -> {
+                    binding.loadingProgressBar.show()
+                    binding.retryTextView.hide()
+                }
+                is TickersState.Success -> {
+                    binding.loadingProgressBar.hide()
+                    binding.retryTextView.hide()
+                }
                 is TickersState.Error -> {
                     binding.loadingProgressBar.hide()
+                    binding.retryTextView.show()
+                    binding.retryTextView.setOnClickListener { tickersViewModel.getAllTickers() }
                     val message = state.exception.getIOErrorMessage(requireContext())
                     requireContext().showToast(message)
                 }

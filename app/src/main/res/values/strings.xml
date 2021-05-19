@@ -1,13 +1,7 @@
 <resources>
     <string name="app_name">Bitso challenge</string>
     <string name="app_name_dev">Bitso challenge - dev</string>
-    <string name="title_main_fragment">Main Fragment</string>
-    <string name="http_error">Whoops, looks like something went wrong.</string>
-    <string name="unknown_error">Something else went wrong!</string>
-
-    <string-array name="movie_categories_array">
-        <item>Top Rated</item>
-        <item>Popular</item>
-        <item>Upcoming</item>
-    </string-array>
+    <string name="title_main_fragment">Bitso</string>
+    <string name="error">Something went wrong, please retry.</string>
+    <string name="retry">Retry</string>
 </resources>

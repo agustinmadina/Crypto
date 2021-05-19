@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bitso.challenge.databinding.ListItemMovieBinding
+import com.bitso.challenge.databinding.ListItemTickerBinding
 import com.bitso.challenge.extensions.viewBinding
 import com.bitso.challenge.network.models.Ticker
 
@@ -15,14 +15,14 @@ class TickersAdapter(
 ) : ListAdapter<Ticker, TickersAdapter.ViewHolder>(MessageDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(parent.viewBinding(ListItemMovieBinding::inflate), openMovieDetailsFn)
+        ViewHolder(parent.viewBinding(ListItemTickerBinding::inflate), openMovieDetailsFn)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
     class ViewHolder(
-        private val binding: ListItemMovieBinding,
+        private val binding: ListItemTickerBinding,
         private val viewTutorialDetailsFn: MovieDetailsFn?
     ) : RecyclerView.ViewHolder(binding.root) {
 
