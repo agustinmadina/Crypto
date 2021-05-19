@@ -16,9 +16,6 @@ import com.bitso.challenge.viewmodels.TickersViewModel
 import com.bitso.challenge.viewmodels.TickersState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-/**
- * Created by Agustin Madina on 23/04/2021.
- */
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val tickersViewModel: TickersViewModel by viewModel()
     private val binding by viewBinding(FragmentMainBinding::bind)
