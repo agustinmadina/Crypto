@@ -6,7 +6,7 @@ import com.bitso.challenge.coroutines.DispatcherProviderImpl
 import com.bitso.challenge.network.ApiService
 import com.bitso.challenge.network.NetworkingManager
 import com.bitso.challenge.repos.MainRepository
-import com.bitso.challenge.viewmodels.MainViewModel
+import com.bitso.challenge.viewmodels.TickersViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.KoinExperimentalAPI
@@ -29,7 +29,7 @@ fun Application.initKoin() {
 
 private fun networkModule() = module {
     single {
-        NetworkingManager(get(), get())
+        NetworkingManager(get())
     }
     single<ApiService> {
         get<NetworkingManager>().retrofitInstance.create(ApiService::class.java)
@@ -42,5 +42,5 @@ private fun repositoryModule() = module {
 }
 
 private fun viewModelsModule() = module {
-    viewModel { MainViewModel(get()) }
+    viewModel { TickersViewModel(get()) }
 }

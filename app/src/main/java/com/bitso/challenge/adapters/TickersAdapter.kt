@@ -4,17 +4,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.bitso.challenge.BuildConfig.IMAGE_BASE_URL
 import com.bitso.challenge.databinding.ListItemMovieBinding
 import com.bitso.challenge.extensions.viewBinding
-import com.bitso.challenge.network.models.Movie
+import com.bitso.challenge.network.models.Ticker
 
-typealias MovieDetailsFn = (Movie) -> Unit
+typealias MovieDetailsFn = (Ticker) -> Unit
 
-class MoviesAdapter(
+class TickersAdapter(
     private val openMovieDetailsFn: MovieDetailsFn? = null,
-) : ListAdapter<Movie, MoviesAdapter.ViewHolder>(MessageDiffCallback()) {
+) : ListAdapter<Ticker, TickersAdapter.ViewHolder>(MessageDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.viewBinding(ListItemMovieBinding::inflate), openMovieDetailsFn)
@@ -28,23 +26,23 @@ class MoviesAdapter(
         private val viewTutorialDetailsFn: MovieDetailsFn?
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Movie) {
-            binding.movieTitleText.text = item.title
+        fun bind(item: Ticker) {
+            binding.movieTitleText.text = item.last
             binding.movieImage.setImageDrawable(null)
-            val imagePath = item.posterPath
-            binding.movieImage.load("${IMAGE_BASE_URL}$imagePath")
-            binding.holder.setOnClickListener {
-                viewTutorialDetailsFn?.invoke(item)
-            }
+//            val imagePath = item.posterPath
+//            binding.movieImage.load("${IMAGE_BASE_URL}$imagePath")
+//            binding.holder.setOnClickListener {
+//                viewTutorialDetailsFn?.invoke(item)
+//            }
         }
     }
 
-    private class MessageDiffCallback : DiffUtil.ItemCallback<Movie>() {
+    private class MessageDiffCallback : DiffUtil.ItemCallback<Ticker>() {
 
-        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean =
-            oldItem.id == newItem.id
+        override fun areItemsTheSame(oldItem: Ticker, newItem: Ticker): Boolean =
+            oldItem.book == newItem.book
 
-        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean =
+        override fun areContentsTheSame(oldItem: Ticker, newItem: Ticker): Boolean =
             oldItem == newItem
     }
 }

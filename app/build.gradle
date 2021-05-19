@@ -15,18 +15,15 @@ repositories {
 android {
     compileSdkVersion 30
     defaultConfig {
-        applicationId "com.agustin.sample"
-        minSdkVersion 23
+        applicationId "com.bitso.challenge"
+        minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // API REST URLs
-        buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
-        buildConfigField "String", "API_KEY", "\"a8132682643637c895cddf6765fa0397\""
-        buildConfigField "String", "READ_ACCESS_TOKEN", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhODEzMjY4MjY0MzYzN2M4OTVjZGRmNjc2NWZhMDM5NyIsInN1YiI6IjVmNTJiZjc5ZDcwNTk0MDAzMWM5N2Y0ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KAiC_KsG2bP14M0mEUxUDs0WdTeBS9V-HAM7UpI5VW0\""
-        buildConfigField "String", "IMAGE_BASE_URL", "\"https://image.tmdb.org/t/p/w500\""
+        buildConfigField "String", "BASE_URL", "\"https://bitso.com/v3/\""
     }
     buildTypes {
         debug {

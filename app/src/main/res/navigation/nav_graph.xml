@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/showMovieDetail"
-            app:destination="@id/movieDetailFragment"
+            app:destination="@id/tickerDetailFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -20,14 +20,14 @@
     </fragment>
 
     <fragment
-        android:id="@+id/movieDetailFragment"
-        android:name="com.bitso.challenge.ui.MovieDetailFragment"
-        android:label="Label detail"
-        tools:layout="@layout/fragment_movie_details">
+        android:id="@+id/tickerDetailFragment"
+        android:name="com.bitso.challenge.ui.TickerDetailFragment"
+        android:label="Ticker detail"
+        tools:layout="@layout/fragment_ticker_details">
 
         <argument
-            android:name="movie"
-            app:argType="com.bitso.challenge.network.models.Movie" />
+            android:name="ticker"
+            app:argType="com.bitso.challenge.network.models.Ticker" />
     </fragment>
 
 </navigation>
