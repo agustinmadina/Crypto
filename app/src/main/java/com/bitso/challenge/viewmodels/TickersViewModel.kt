@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.bitso.challenge.network.models.ChartEntry
 import com.bitso.challenge.network.models.Ticker
 import com.bitso.challenge.repos.MainRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -25,8 +26,15 @@ class TickersViewModel(
     private val _tickerChartInfo = MutableLiveData<List<ChartEntry>>()
     val tickerChartInfo: LiveData<List<ChartEntry>> = _tickerChartInfo
 
-//    private val _movieDetail = MutableLiveData<MovieDetail>()
-//    val movieDetail: LiveData<MovieDetail> = _movieDetail
+    fun getAllTickersEvery30Secs() {
+        _tickersState.value = TickersState.Loading
+        viewModelScope.launch {
+            while (true) {
+                delay(3000)
+                getAllTickers()
+            }
+        }
+    }
 
     fun getAllTickers() {
         _tickersState.value = TickersState.Loading
@@ -42,7 +50,7 @@ class TickersViewModel(
     }
 
     fun getTickerChartInfo(book: String, time: String) {
-//        _tickersState.value = TickersState.Loading
+        _tickersState.value = TickersState.Loading
         viewModelScope.launch {
             try {
                 _tickerChartInfo.value = mainRepo.getTickerChartInfo(book, time)
@@ -53,49 +61,6 @@ class TickersViewModel(
             }
         }
     }
-
-//    fun getMovieDetail(movieId: Int) {
-//        _moviesState.value = MovieState.Loading
-//        viewModelScope.launch {
-//            try {
-//                _movieDetail.value = mainRepo.getMovieDetails(movieId)
-//                _moviesState.value = MovieState.Success
-//            } catch (e: Throwable) {
-//                _moviesState.value = MovieState.Error(e)
-//                Timber.e(e, ERROR_GET_MOVIES)
-//            }
-//        }
-//    }
-//
-//    fun searchMovie(keyword: String) {
-//        _moviesState.value = MovieState.Loading
-//        viewModelScope.launch {
-//            try {
-//                _movies.value = mainRepo.searchMovie(keyword)
-//                _moviesState.value = MovieState.Success
-//            } catch (e: Throwable) {
-//                _moviesState.value = MovieState.Error(e)
-//                Timber.e(e, ERROR_GET_MOVIES)
-//            }
-//        }
-//    }
-
-//    fun loadCategory(position: Int) {
-//        _tickersState.value = TickersState.Loading
-//        viewModelScope.launch {
-//            try {
-//                when (position) {
-//                    0 ->  _tickers.value = mainRepo.getAllTickers()
-//                    1 ->  _tickers.value = mainRepo.getPopularMovies()
-//                    2 ->  _tickers.value = mainRepo.getUpcomingMovies()
-//                }
-//                _tickersState.value = TickersState.Success
-//            } catch (e: Throwable) {
-//                _tickersState.value = TickersState.Error(e)
-//                Timber.e(e, ERROR_GET_MOVIES)
-//            }
-//        }
-//    }
 }
 
 sealed class TickersState {

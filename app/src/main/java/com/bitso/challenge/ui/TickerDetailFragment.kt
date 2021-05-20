@@ -8,14 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bitso.challenge.R
 import com.bitso.challenge.databinding.FragmentTickerDetailsBinding
+import com.bitso.challenge.extensions.getIOErrorMessage
+import com.bitso.challenge.extensions.showToast
 import com.bitso.challenge.extensions.viewBinding
 import com.bitso.challenge.network.models.ChartEntry
+import com.bitso.challenge.viewmodels.TickersState
 import com.bitso.challenge.viewmodels.TickersViewModel
-import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import kotlinx.android.synthetic.main.fragment_ticker_details.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TickerDetailFragment : Fragment(R.layout.fragment_ticker_details) {
@@ -41,46 +42,42 @@ class TickerDetailFragment : Fragment(R.layout.fragment_ticker_details) {
         tickersViewModel.getTickerChartInfo(ticker.book, "1month")
 
         binding.chart1monthButton.setOnClickListener {
+            binding.chartView.invalidate()
             tickersViewModel.getTickerChartInfo(ticker.book, "1month")
         }
 
         binding.chart3monthsButton.setOnClickListener {
+            binding.chartView.invalidate()
             tickersViewModel.getTickerChartInfo(ticker.book, "3months")
         }
 
         binding.chart1yearButton.setOnClickListener {
+            binding.chartView.invalidate()
             tickersViewModel.getTickerChartInfo(ticker.book, "1year")
         }
     }
 
     private fun setupObservers() {
-//        tickersViewModel.tickersState.observe(viewLifecycleOwner) { state ->
-//            when (state) {
-//                is TickersState.Loading -> {
-//                    binding.loadingProgressBar.show()
-//                    binding.retryTextView.hide()
-//                }
-//                is TickersState.Success -> {
-//                    binding.loadingProgressBar.hide()
-//                    binding.retryTextView.hide()
-//                    swipeRefreshLayout.isRefreshing = false
-//                }
-//                is TickersState.Error -> {
-//                    binding.loadingProgressBar.hide()
-//                    binding.retryTextView.show()
-//                    swipeRefreshLayout.isRefreshing = false
-//                    binding.retryTextView.setOnClickListener { tickersViewModel.getAllTickers() }
-//                    val message = state.exception.getIOErrorMessage(requireContext())
-//                    requireContext().showToast(message)
-//                }
-//            }
-//        }
+        tickersViewModel.tickersState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is TickersState.Loading -> {
+                    binding.loadingProgressBar.show()
+                }
+                is TickersState.Success -> {
+                    binding.loadingProgressBar.hide()
+                }
+                is TickersState.Error -> {
+                    binding.loadingProgressBar.hide()
+                    val message = state.exception.getIOErrorMessage(requireContext())
+                    requireContext().showToast(message)
+                }
+            }
+        }
 
         tickersViewModel.tickerChartInfo.observe(viewLifecycleOwner) { entries ->
             setUpChart(entries)
         }
     }
-
 
     private fun setUpChart(entries: List<ChartEntry>) {
         with(binding.chartView) {
@@ -108,12 +105,13 @@ class TickerDetailFragment : Fragment(R.layout.fragment_ticker_details) {
         val dataSet = LineDataSet(data, "Unused label").apply {
             color = Color.GREEN
             valueTextColor = Color.GRAY
-            highLightColor = Color.RED
+            highLightColor = Color.LTGRAY
+            valueTextColor = Color.LTGRAY
             setDrawCircles(false)
             setDrawValues(false)
             lineWidth = 1.5f
             isHighlightEnabled = true
-            setDrawHighlightIndicators(false)
+            setDrawHighlightIndicators(true)
         }
         binding.chartView.data = LineData(dataSet)
         binding.chartView.invalidate()

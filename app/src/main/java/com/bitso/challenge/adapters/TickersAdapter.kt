@@ -40,6 +40,6 @@ class TickersAdapter(
             oldItem.book == newItem.book
 
         override fun areContentsTheSame(oldItem: Ticker, newItem: Ticker): Boolean =
-            oldItem == newItem
+            oldItem.last == newItem.last
     }
 }

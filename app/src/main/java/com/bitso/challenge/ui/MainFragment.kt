@@ -28,7 +28,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         swipeRefreshLayout.setOnRefreshListener {
             tickersViewModel.getAllTickers()
         }
-        tickersViewModel.getAllTickers()
+        tickersViewModel.getAllTickersEvery30Secs()
     }
 
     private fun setupRecyclerView() {
