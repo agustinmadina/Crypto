@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bitso.challenge.network.models.ChartEntry
 import com.bitso.challenge.network.models.Ticker
 import com.bitso.challenge.repos.MainRepository
 import kotlinx.coroutines.launch
@@ -21,6 +22,9 @@ class TickersViewModel(
     private val _tickers = MutableLiveData<List<Ticker>>()
     val tickers: LiveData<List<Ticker>> = _tickers
 
+    private val _tickerChartInfo = MutableLiveData<List<ChartEntry>>()
+    val tickerChartInfo: LiveData<List<ChartEntry>> = _tickerChartInfo
+
 //    private val _movieDetail = MutableLiveData<MovieDetail>()
 //    val movieDetail: LiveData<MovieDetail> = _movieDetail
 
@@ -29,6 +33,19 @@ class TickersViewModel(
         viewModelScope.launch {
             try {
                 _tickers.value = mainRepo.getAllTickers()
+                _tickersState.value = TickersState.Success
+            } catch (e: Throwable) {
+                _tickersState.value = TickersState.Error(e)
+                Timber.e(e, ERROR_GET_TICKERS)
+            }
+        }
+    }
+
+    fun getTickerChartInfo(book: String, time: String) {
+//        _tickersState.value = TickersState.Loading
+        viewModelScope.launch {
+            try {
+                _tickerChartInfo.value = mainRepo.getTickerChartInfo(book, time)
                 _tickersState.value = TickersState.Success
             } catch (e: Throwable) {
                 _tickersState.value = TickersState.Error(e)

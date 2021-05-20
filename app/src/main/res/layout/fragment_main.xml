@@ -31,7 +31,7 @@
             android:layout_height="@dimen/progress_bar_size"
             android:layout_gravity="center"
             android:alpha="0.6"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

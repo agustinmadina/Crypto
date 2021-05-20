@@ -70,8 +70,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
         }
 
-        tickersViewModel.tickers.observe(viewLifecycleOwner) { movies ->
-            tickersAdapter.submitList(movies)
+        tickersViewModel.tickers.observe(viewLifecycleOwner) { tickers ->
+            tickersAdapter.submitList(tickers)
             tickersAdapter.notifyDataSetChanged()
         }
     }

@@ -21,15 +21,42 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="BTC/USD" />
 
-    <LinearLayout
-        android:id="@+id/chart"
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/bidPriceTitle"
+        android:layout_height="250dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ticker_title" />
+        app:layout_constraintTop_toBottomOf="@id/ticker_title"
+        android:layout_margin="16dp" />
+
+    <Button
+        android:id="@+id/chart_1month_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/ChartButton"
+        app:layout_constraintStart_toStartOf="@id/bidPriceTitle"
+        app:layout_constraintTop_toBottomOf="@id/chart_view"
+        android:text="1 month"/>
+
+    <Button
+        android:id="@+id/chart_3months_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/ChartButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chart_view"
+        android:text="3 months"/>
+
+    <Button
+        android:id="@+id/chart_1year_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/ChartButton"
+        app:layout_constraintEnd_toEndOf="@id/change24Title"
+        app:layout_constraintTop_toBottomOf="@id/chart_view"
+        android:text="1 year"/>
 
     <TextView
         android:id="@+id/bidPriceTitle"
@@ -37,10 +64,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:text="Bid price"
+        android:layout_marginTop="50dp"
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chart" />
+        app:layout_constraintTop_toBottomOf="@+id/chart_1month_button" />
 
     <TextView
         android:id="@+id/bidPrice"
@@ -81,7 +109,7 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@id/ticker_title"
-        app:layout_constraintTop_toBottomOf="@+id/chart" />
+        app:layout_constraintTop_toTopOf="@id/bidPriceTitle" />
 
     <TextView
         android:id="@+id/dayHighPrice"
@@ -124,7 +152,7 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chart" />
+        app:layout_constraintTop_toTopOf="@id/bidPriceTitle" />
 
     <TextView
         android:id="@+id/change24"

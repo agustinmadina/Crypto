@@ -23,7 +23,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // API REST URLs
-        buildConfigField "String", "BASE_URL", "\"https://bitso.com/v3/\""
+        buildConfigField "String", "BASE_URL", "\"https://bitso.com/\""
     }
     buildTypes {
         debug {
@@ -145,6 +145,9 @@ dependencies {
     implementation "io.insert-koin:koin-android-ext:$koin_version"
     implementation "io.insert-koin:koin-androidx-workmanager:$koin_version"
     testImplementation "io.insert-koin:koin-test:$koin_version"
+
+    // LineChart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     // Test
     // Unit testing framework

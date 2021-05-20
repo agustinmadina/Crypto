@@ -20,7 +20,7 @@ data class Ticker(
     val createdAt: String?,
 
     @Json(name = "book")
-    val book: String?,
+    val book: String,
 
     @Json(name = "volume")
     val volume: String?,
