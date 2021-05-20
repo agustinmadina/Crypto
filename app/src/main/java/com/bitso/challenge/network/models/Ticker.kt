@@ -36,4 +36,11 @@ data class Ticker(
     @Json(name = "change_24")
     val change24: String?
 
-) :Parcelable
+) :Parcelable {
+
+    val displayBook: String?
+        get() = book?.substringBefore("_")?.capitalize()
+
+    val priceCurrency: String?
+        get() = book?.substringAfter("_")?.toUpperCase()
+}

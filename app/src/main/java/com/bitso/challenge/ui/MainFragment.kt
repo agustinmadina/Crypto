@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bitso.challenge.R
 import com.bitso.challenge.adapters.TickersAdapter
 import com.bitso.challenge.databinding.FragmentMainBinding
 import com.bitso.challenge.extensions.*
 import com.bitso.challenge.network.models.Ticker
-import com.bitso.challenge.viewmodels.TickersViewModel
 import com.bitso.challenge.viewmodels.TickersState
-import org.koin.android.ext.android.bind
+import com.bitso.challenge.viewmodels.TickersViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -29,11 +28,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun setupRecyclerView() {
-        val layoutManager = LinearLayoutManager(context)
+        val layoutManager = GridLayoutManager(context, 2)
         binding.tickersRecyclerView.layoutManager = layoutManager
         tickersAdapter = TickersAdapter(
-            openMovieDetailsFn = { movie ->
-                openTickerDetails(movie)
+            openTickerDetailsFn = { ticker ->
+                openTickerDetails(ticker)
             }
         )
         binding.tickersRecyclerView.adapter = tickersAdapter

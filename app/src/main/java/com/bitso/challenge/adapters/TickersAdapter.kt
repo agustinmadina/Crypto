@@ -4,18 +4,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bitso.challenge.R
 import com.bitso.challenge.databinding.ListItemTickerBinding
 import com.bitso.challenge.extensions.viewBinding
 import com.bitso.challenge.network.models.Ticker
 
-typealias MovieDetailsFn = (Ticker) -> Unit
+typealias TickerDetailsFn = (Ticker) -> Unit
 
 class TickersAdapter(
-    private val openMovieDetailsFn: MovieDetailsFn? = null,
+    private val openTickerDetailsFn: TickerDetailsFn? = null,
 ) : ListAdapter<Ticker, TickersAdapter.ViewHolder>(MessageDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(parent.viewBinding(ListItemTickerBinding::inflate), openMovieDetailsFn)
+        ViewHolder(parent.viewBinding(ListItemTickerBinding::inflate), openTickerDetailsFn)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
@@ -23,17 +24,12 @@ class TickersAdapter(
 
     class ViewHolder(
         private val binding: ListItemTickerBinding,
-        private val viewTutorialDetailsFn: MovieDetailsFn?
+        private val viewTickerDetailsFn: TickerDetailsFn?
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Ticker) {
-            binding.movieTitleText.text = item.last
-            binding.movieImage.setImageDrawable(null)
-//            val imagePath = item.posterPath
-//            binding.movieImage.load("${IMAGE_BASE_URL}$imagePath")
-//            binding.holder.setOnClickListener {
-//                viewTutorialDetailsFn?.invoke(item)
-//            }
+            binding.tickerTitleText.text = item.displayBook
+            binding.tickerPriceText.text = binding.tickerPriceText.context.getString(R.string.price_format, item.last, item.priceCurrency)
         }
     }
 
