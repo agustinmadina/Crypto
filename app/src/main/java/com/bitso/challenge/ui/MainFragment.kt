@@ -43,7 +43,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun openTickerDetails(ticker: Ticker) {
-        val directions = MainFragmentDirections.showMovieDetail(ticker)
+        val directions = MainFragmentDirections.showTickerDetail(ticker)
         findNavController().navigate(directions)
     }
 

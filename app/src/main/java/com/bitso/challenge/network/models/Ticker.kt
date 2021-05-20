@@ -28,16 +28,22 @@ data class Ticker(
     @Json(name = "vwap")
     val vwap: String?,
 
+    @Json(name = "low")
+    val low: String?,
+
     @Json(name = "ask")
-    val ask: String?,
+    val ask: String,
 
     @Json(name = "bid")
-    val bid: String?,
+    val bid: String,
 
     @Json(name = "change_24")
     val change24: String?
 
 ) :Parcelable {
+
+    val spread: String
+        get() = (ask.toBigDecimal().minus(bid.toBigDecimal()).toString())
 
     val displayBook: String?
         get() = book?.capitalizeBook()

@@ -30,6 +30,7 @@ class TickersAdapter(
         fun bind(item: Ticker) {
             binding.tickerTitleText.text = item.displayBook
             binding.tickerPriceText.text = binding.tickerPriceText.context.getString(R.string.price_format, item.last, item.priceCurrency)
+            binding.root.setOnClickListener { viewTickerDetailsFn?.invoke(item) }
         }
     }
 
