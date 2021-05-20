@@ -1,6 +1,7 @@
 package com.bitso.challenge.network.models
 
 import android.os.Parcelable
+import com.bitso.challenge.extensions.capitalizeBook
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
@@ -39,7 +40,7 @@ data class Ticker(
 ) :Parcelable {
 
     val displayBook: String?
-        get() = book?.substringBefore("_")?.capitalize()
+        get() = book?.capitalizeBook()
 
     val priceCurrency: String?
         get() = book?.substringAfter("_")?.toUpperCase()

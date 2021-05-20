@@ -12,6 +12,7 @@ import com.bitso.challenge.extensions.*
 import com.bitso.challenge.network.models.Ticker
 import com.bitso.challenge.viewmodels.TickersState
 import com.bitso.challenge.viewmodels.TickersViewModel
+import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -24,6 +25,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupObservers()
+        swipeRefreshLayout.setOnRefreshListener {
+            tickersViewModel.getAllTickers()
+        }
         tickersViewModel.getAllTickers()
     }
 
@@ -53,10 +57,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 is TickersState.Success -> {
                     binding.loadingProgressBar.hide()
                     binding.retryTextView.hide()
+                    swipeRefreshLayout.isRefreshing = false
                 }
                 is TickersState.Error -> {
                     binding.loadingProgressBar.hide()
                     binding.retryTextView.show()
+                    swipeRefreshLayout.isRefreshing = false
                     binding.retryTextView.setOnClickListener { tickersViewModel.getAllTickers() }
                     val message = state.exception.getIOErrorMessage(requireContext())
                     requireContext().showToast(message)
