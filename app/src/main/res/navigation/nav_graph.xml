@@ -10,13 +10,6 @@
         android:name="com.bitso.challenge.ui.MainFragment"
         android:label="@string/title_main_fragment"
         tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/showTickerDetail"
-            app:destination="@id/tickerDetailFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -30,4 +23,11 @@
             app:argType="com.bitso.challenge.network.models.Ticker" />
     </fragment>
 
+    <action
+        android:id="@+id/showTickerDetail"
+        app:destination="@id/tickerDetailFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 </navigation>

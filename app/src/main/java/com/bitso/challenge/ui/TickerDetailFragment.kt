@@ -5,25 +5,32 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bitso.challenge.R
+import com.bitso.challenge.adapters.TickersAdapter
 import com.bitso.challenge.databinding.FragmentTickerDetailsBinding
 import com.bitso.challenge.extensions.getIOErrorMessage
 import com.bitso.challenge.extensions.showToast
 import com.bitso.challenge.extensions.viewBinding
 import com.bitso.challenge.network.models.ChartEntry
+import com.bitso.challenge.network.models.Ticker
 import com.bitso.challenge.viewmodels.TickersState
 import com.bitso.challenge.viewmodels.TickersViewModel
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 class TickerDetailFragment : Fragment(R.layout.fragment_ticker_details) {
 
     private val tickersViewModel: TickersViewModel by viewModel()
     private val binding by viewBinding(FragmentTickerDetailsBinding::bind)
     private val args: TickerDetailFragmentArgs by navArgs()
+
+    private lateinit var tickersAdapter: TickersAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,6 +62,13 @@ class TickerDetailFragment : Fragment(R.layout.fragment_ticker_details) {
             binding.chartView.invalidate()
             tickersViewModel.getTickerChartInfo(ticker.book, "1year")
         }
+
+        tickersAdapter = TickersAdapter( openTickerDetailsFn = {
+            openTickerDetails(it)
+        })
+
+        binding.autoScrollTicketView.setAdapter(tickersAdapter)
+        tickersViewModel.getAllTickers()
     }
 
     private fun setupObservers() {
@@ -76,6 +90,11 @@ class TickerDetailFragment : Fragment(R.layout.fragment_ticker_details) {
 
         tickersViewModel.tickerChartInfo.observe(viewLifecycleOwner) { entries ->
             setUpChart(entries)
+        }
+
+        tickersViewModel.tickers.observe(viewLifecycleOwner) { tickers ->
+            tickersAdapter.submitList(tickers)
+            binding.autoScrollTicketView.autoScroll(50)
         }
     }
 
@@ -115,5 +134,10 @@ class TickerDetailFragment : Fragment(R.layout.fragment_ticker_details) {
         }
         binding.chartView.data = LineData(dataSet)
         binding.chartView.invalidate()
+    }
+
+    private fun openTickerDetails(ticker: Ticker) {
+        val directions = TickerDetailFragmentDirections.showTickerDetail(ticker)
+        findNavController().navigate(directions)
     }
 }

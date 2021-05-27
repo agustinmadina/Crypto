@@ -13,24 +13,24 @@ typealias TickerDetailsFn = (Ticker) -> Unit
 
 class TickersAdapter(
     private val openTickerDetailsFn: TickerDetailsFn? = null,
-) : ListAdapter<Ticker, TickersAdapter.ViewHolder>(MessageDiffCallback()) {
+) : ListAdapter<Ticker, TickersAdapter.TickerViewHolder>(MessageDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(parent.viewBinding(ListItemTickerBinding::inflate), openTickerDetailsFn)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TickerViewHolder =
+        TickerViewHolder(parent.viewBinding(ListItemTickerBinding::inflate), openTickerDetailsFn)
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TickerViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class ViewHolder(
+    class TickerViewHolder(
         private val binding: ListItemTickerBinding,
-        private val viewTickerDetailsFn: TickerDetailsFn?
+        private val viewTickerDetailsFn: TickerDetailsFn? = null
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Ticker) {
             binding.tickerTitleText.text = item.displayBook
             binding.tickerPriceText.text = binding.tickerPriceText.context.getString(R.string.price_format, item.last, item.priceCurrency)
-            binding.root.setOnClickListener { viewTickerDetailsFn?.invoke(item) }
+            binding.holder.setOnClickListener { viewTickerDetailsFn?.invoke(item) }
         }
     }
 

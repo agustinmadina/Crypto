@@ -30,8 +30,8 @@ class TickersViewModel(
         _tickersState.value = TickersState.Loading
         viewModelScope.launch {
             while (true) {
-                delay(3000)
                 getAllTickers()
+                delay(30000)
             }
         }
     }
