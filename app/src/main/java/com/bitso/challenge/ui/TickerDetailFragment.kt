@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bitso.challenge.R
 import com.bitso.challenge.adapters.TickersAdapter
 import com.bitso.challenge.databinding.FragmentTickerDetailsBinding
@@ -22,7 +22,6 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 class TickerDetailFragment : Fragment(R.layout.fragment_ticker_details) {
 
@@ -63,7 +62,7 @@ class TickerDetailFragment : Fragment(R.layout.fragment_ticker_details) {
             tickersViewModel.getTickerChartInfo(ticker.book, "1year")
         }
 
-        tickersAdapter = TickersAdapter( openTickerDetailsFn = {
+        tickersAdapter = TickersAdapter(openTickerDetailsFn = {
             openTickerDetails(it)
         })
 
@@ -94,7 +93,9 @@ class TickerDetailFragment : Fragment(R.layout.fragment_ticker_details) {
 
         tickersViewModel.tickers.observe(viewLifecycleOwner) { tickers ->
             tickersAdapter.submitList(tickers)
-            binding.autoScrollTicketView.autoScroll(50)
+            lifecycleScope.launchWhenStarted {
+                binding.autoScrollTicketView.autoScrollFeaturesList()
+            }
         }
     }
 

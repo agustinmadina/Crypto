@@ -4,15 +4,16 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.findViewTreeLifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView
 import com.bitso.challenge.adapters.TickersAdapter
 import com.bitso.challenge.databinding.ViewInfiniteRotationBinding
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+
+private const val DELAY_BETWEEN_SCROLL_MS = 25L
+private const val SCROLL_DX = 5
+private const val DIRECTION_RIGHT = 1
 
 class InfiniteRotationView @JvmOverloads constructor(
     context: Context,
@@ -22,47 +23,28 @@ class InfiniteRotationView @JvmOverloads constructor(
     private val binding = ViewInfiniteRotationBinding.inflate(LayoutInflater.from(context), this)
 
     private val layoutManager: LinearLayoutManager = LinearLayoutManager(context, HORIZONTAL, false)
-    private lateinit var onScrollListener: OnScrollListener
 
     fun setAdapter(adapter: TickersAdapter) {
         val recyclerView = binding.recyclerViewHorizontalList
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
-        onScrollListener = OnScrollListener(layoutManager)
-        recyclerView.addOnScrollListener(onScrollListener)
     }
 
-    fun autoScroll(intervalInMillis: Long) {
-        findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
-            while (true) {
-                delay(intervalInMillis)
-                binding.recyclerViewHorizontalList.smoothScrollBy(40, 0)
+    tailrec suspend fun autoScrollFeaturesList() {
+        if (binding.recyclerViewHorizontalList.canScrollHorizontally(DIRECTION_RIGHT)) {
+            binding.recyclerViewHorizontalList.smoothScrollBy(SCROLL_DX, 0)
+        } else {
+            val firstPosition =
+                (binding.recyclerViewHorizontalList.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+            if (firstPosition != RecyclerView.NO_POSITION) {
+                val adapter = binding.recyclerViewHorizontalList.adapter as TickersAdapter
+                val currentList = adapter.currentList
+                val secondPart = currentList.subList(0, firstPosition)
+                val firstPart = currentList.subList(firstPosition, currentList.size)
+                adapter.submitList(firstPart + secondPart)
             }
         }
-    }
-
-    class OnScrollListener(
-        private val layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
-
-        private var loading = true
-        private var pastVisibleItems = 0
-        var visibleItemCount: Int = 0
-        var totalItemCount: Int = 0
-
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            if (dx > 0) {
-                visibleItemCount = layoutManager.childCount;
-                totalItemCount = layoutManager.itemCount;
-                pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
-
-                if (loading) {
-                    if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
-                        loading = false
-                        recyclerView.scrollToPosition(0)
-                        loading = true
-                    }
-                }
-            }
-        }
+        delay(DELAY_BETWEEN_SCROLL_MS)
+        autoScrollFeaturesList()
     }
 }
